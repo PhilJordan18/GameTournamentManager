@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ii/l1BMODDA=",
+  "success": true,
+  "projectFilePath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj",
+  "expectedPackageFiles": [
+    "/Users/philippemonfouayi/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.5/microsoft.extensions.dependencyinjection.abstractions.9.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
