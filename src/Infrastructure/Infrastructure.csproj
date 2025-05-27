@@ -4,7 +4,8 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-    </PropertyGroup>
+      <UserSecretsId>e4c94e4a-5d93-4bec-aa32-d54372de6459</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
       <Folder Include="Services\" />
