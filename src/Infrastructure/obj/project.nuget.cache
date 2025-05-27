@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RjefrMQDhns=",
+  "dgSpecHash": "r6/ckOe88j4=",
   "success": true,
   "projectFilePath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/philippemonfouayi/.nuget/packages/coverlet.collector/6.0.2/coverlet.collector.6.0.2.nupkg.sha512",
+    "/Users/philippemonfouayi/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/9.0.5/microsoft.aspnetcore.authentication.jwtbearer.9.0.5.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.codecoverage/17.11.1/microsoft.codecoverage.17.11.1.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.entityframeworkcore/9.0.1/microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.1/microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
@@ -22,6 +23,8 @@
     "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.abstractions/8.11.0/microsoft.identitymodel.abstractions.8.11.0.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.11.0/microsoft.identitymodel.jsonwebtokens.8.11.0.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.logging/8.11.0/microsoft.identitymodel.logging.8.11.0.nupkg.sha512",
+    "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.protocols/8.0.1/microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
+    "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/8.0.1/microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.identitymodel.tokens/8.11.0/microsoft.identitymodel.tokens.8.11.0.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.net.test.sdk/17.11.1/microsoft.net.test.sdk.17.11.1.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/microsoft.testplatform.objectmodel/17.11.1/microsoft.testplatform.objectmodel.17.11.1.nupkg.sha512",
@@ -32,6 +35,7 @@
     "/Users/philippemonfouayi/.nuget/packages/nunit/4.2.2/nunit.4.2.2.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/nunit.analyzers/4.3.0/nunit.analyzers.4.3.0.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/nunit3testadapter/4.6.0/nunit3testadapter.4.6.0.nupkg.sha512",
+    "/Users/philippemonfouayi/.nuget/packages/scalar.aspnetcore/2.4.3/scalar.aspnetcore.2.4.3.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/system.identitymodel.tokens.jwt/8.11.0/system.identitymodel.tokens.jwt.8.11.0.nupkg.sha512",
     "/Users/philippemonfouayi/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512"
   ],
