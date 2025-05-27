@@ -4,14 +4,14 @@
     "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj": {}
   },
   "projects": {
-    "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj": {
+    "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj",
-        "projectName": "WebApi",
-        "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj",
+        "projectUniqueName": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj",
+        "projectName": "Core",
+        "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj",
         "packagesPath": "/Users/philippemonfouayi/.nuget/packages/",
-        "outputPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/obj/",
+        "outputPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/philippemonfouayi/.nuget/NuGet/NuGet.Config"
@@ -44,9 +44,264 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/philippemonfouayi/.nuget/packages/",
+        "outputPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/philippemonfouayi/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj": {
+                "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj"
+              },
+              "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/Tests.csproj": {
+                "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/Tests.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/Tests.csproj",
+        "projectName": "Tests",
+        "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/Tests.csproj",
+        "packagesPath": "/Users/philippemonfouayi/.nuget/packages/",
+        "outputPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/philippemonfouayi/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.11.1, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[4.2.2, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj",
+        "projectName": "WebApi",
+        "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/WebApi.csproj",
+        "packagesPath": "/Users/philippemonfouayi/.nuget/packages/",
+        "outputPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/philippemonfouayi/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj": {
+                "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Core/Core.csproj"
+              },
+              "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/Infrastructure/Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
+            "Scalar.AspNetCore": {
+              "target": "Package",
+              "version": "[2.4.3, )"
+            },
+            "Swashbuckle.AspNetCore.ReDoc": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             }
           },
           "imports": [
