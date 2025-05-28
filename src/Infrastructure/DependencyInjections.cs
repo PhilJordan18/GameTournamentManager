@@ -1,4 +1,8 @@
 using System.Text;
+using Core.Interfaces.Auth;
+using Infrastructure.Services;
+using Core.Validators.Auth;
+using FluentValidation;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +39,10 @@ public static class DependencyInjections
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? string.Empty))
             };
         });
+
+        services.AddScoped<IAuthServices, AuthServices>();
+        services.AddValidatorsFromAssemblyContaining<LoginValidator>();
+        services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
         
         return services;
     }
