@@ -30,9 +30,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         );
         
         modelBuilder.Entity<Status>().HasData(
-            new Role {Id = 1, Name = "En attente"},
-            new Role {Id = 2, Name = "En cours"},
-            new Role {Id = 3, Name = "Terminé"}
+            new Status {Id = 1, Name = "En attente"},
+            new Status {Id = 2, Name = "En cours"},
+            new Status {Id = 3, Name = "Terminé"}
         );
     }
 }

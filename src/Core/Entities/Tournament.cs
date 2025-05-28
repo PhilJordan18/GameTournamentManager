@@ -3,20 +3,19 @@ namespace Core.Entities;
 public class Tournament
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-
+    public string Name { get; set; } = string.Empty;
     public int GameId { get; set; }
-    public Game Game { get; set; }
-
+    public Game Game { get; set; } = null!;
     public int NbMaxPlayers { get; set; }
     public DateTime BeginningDate { get; set; }
     public DateTime EndDate { get; set; }
-
     public int StatusId { get; set; }
-    public Status Status { get; set; }
-
-    public ICollection<TournamentPlayer> Players { get; set; }
-    public ICollection<Match> Matches { get; set; }
+    public Status Status { get; set; } = null!;
+    public int CreatorId { get; set; } 
+    public User Creator { get; set; } = null!; 
+    public ICollection<TournamentPlayer> Players { get; set; } = [];
+    public ICollection<Match> Matches { get; set; } = [];
+    public string Description { get; set; } = string.Empty;
 }
 
 
