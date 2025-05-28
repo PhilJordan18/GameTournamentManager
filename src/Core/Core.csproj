@@ -7,16 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\" />
-      <Folder Include="Interfaces\" />
       <Folder Include="Mappings\" />
       <Folder Include="Services\" />
-      <Folder Include="Validators\" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="FluentValidation" Version="12.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.11.0" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.11.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Tests\Tests.csproj" />
+    </ItemGroup>
+  
 </Project>
