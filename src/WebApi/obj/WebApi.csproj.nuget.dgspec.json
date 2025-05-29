@@ -140,6 +140,10 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[12.0.0, )"
@@ -331,6 +335,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.0, )"

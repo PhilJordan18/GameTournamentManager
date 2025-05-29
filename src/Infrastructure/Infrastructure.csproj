@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="BCrypt" Version="1.0.0" />
+      <PackageReference Include="FirebaseAdmin" Version="3.2.0" />
       <PackageReference Include="FluentValidation" Version="12.0.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.5" />
@@ -27,6 +28,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\Tests\Tests.csproj" />
+      <None Update="firebase-adminsdk.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
