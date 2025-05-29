@@ -1,8 +1,12 @@
+using System.Net.Http.Headers;
 using System.Text;
 using Core.Interfaces.Auth;
+using Core.Interfaces.Tournament;
 using Infrastructure.Services;
 using Core.Validators.Auth;
+using Core.Validators.Tournament;
 using FluentValidation;
+using Infrastructure.Client;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +47,15 @@ public static class DependencyInjections
         services.AddScoped<IAuthServices, AuthServices>();
         services.AddValidatorsFromAssemblyContaining<LoginValidator>();
         services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
+        
+        services.AddHttpClient("RawgApi", client =>
+        {
+            client.BaseAddress = new Uri(configuration["RawgApi:BaseUrl"]!);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        });
+        services.AddScoped<ITournamentServices, TournamentServices>();
+        services.AddValidatorsFromAssemblyContaining<TournamentConfigValidator>();
+        services.AddScoped<IGameLoaderClient, GameLoaderClient>();
         
         return services;
     }

@@ -66,4 +66,8 @@ public class Game
     public string Name { get; set; }
     public string Description { get; set; }
     public string Rules { get; set; }
+    public string ExternalId { get; set; } = string.Empty;
 }
+
+//dotnet ef migrations add AddExternalIdToGame --project src/Infrastructure/ --startup-project src/WebApi/
+// dotnet ef database update --project src/Infrastructure/ --startup-project src/WebApi/

@@ -7,7 +7,7 @@ public class TournamentConfig
     [Required]
     public string Name { get; set; } = string.Empty;
     [Required]
-    public int GameId { get; set; }
+    public string GameName { get; set; }
     [Required, Range(4, 32)]
     public int NbMaxPlayers { get; set; } 
     [Required]
