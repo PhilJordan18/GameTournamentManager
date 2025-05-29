@@ -6,8 +6,8 @@ public class TournamentConfig
 {
     [Required]
     public string Name { get; set; } = string.Empty;
-    [Required]
-    public string GameName { get; set; }
+    [Required] 
+    public string GameName { get; set; } = string.Empty;
     [Required, Range(4, 32)]
     public int NbMaxPlayers { get; set; } 
     [Required]
@@ -51,6 +51,8 @@ public class MatchResponse
     public string? FirstPlayerUsername { get; set; }
     public int? SecondPlayerId { get; set; }
     public string? SecondPlayerUsername { get; set; }
+    public int? PendingWinnerId { get; set; }
+    public string? PendingWinnerUsername { get; set; }
     public int? WinnerId { get; set; }
     public string? WinnerUsername { get; set; }
     public DateTime MatchTime { get; set; }

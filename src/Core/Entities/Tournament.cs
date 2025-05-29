@@ -42,20 +42,17 @@ public class TournamentPlayer
 public class Match
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-
+    public string Name { get; set; } = string.Empty;
     public int TournamentId { get; set; }
-    public Tournament Tournament { get; set; }
-
+    public Tournament Tournament { get; set; } = null!;
     public int FirstPlayerId { get; set; }
-    public User FirstPlayer { get; set; }
-
-    public int SecondPlayerId { get; set; }
-    public User SecondPlayer { get; set; }
-
-    public int? WinnerId { get; set; }
-    public User Winner { get; set; }
-
+    public User FirstPlayer { get; set; } = null!;
+    public int? SecondPlayerId { get; set; } 
+    public User? SecondPlayer { get; set; }
+    public int? PendingWinnerId { get; set; } 
+    public User? PendingWinner { get; set; }
+    public int? WinnerId { get; set; } 
+    public User? Winner { get; set; }
     public DateTime MatchTime { get; set; }
 }
 

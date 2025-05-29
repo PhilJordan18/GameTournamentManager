@@ -142,7 +142,7 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
             .FirstOrDefaultAsync(t => t.Id == tournamentId)
             ?? throw new ArgumentException("Tournoi non trouvé.");
 
-        if (tournament.StatusId != 1)
+        if (tournament.StatusId != 1) 
         {
             logger.LogWarning("Tentative de démarrer le tournoi {TournamentId} qui n’est pas en attente", tournamentId);
             throw new InvalidOperationException("Le tournoi ne peut pas être démarré.");
@@ -153,12 +153,12 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
             throw new InvalidOperationException("Pas assez de joueurs pour démarrer le tournoi.");
         }
 
-        tournament.StatusId = 2;
+        tournament.StatusId = 2; 
         await context.SaveChangesAsync();
 
         var players = tournament.Players
             .Select(tp => tp.UserId)
-            .OrderBy(_ => Guid.NewGuid()) 
+            .OrderBy(_ => Guid.NewGuid())
             .ToList();
 
         var matches = new List<Match>();
@@ -169,8 +169,9 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
                 Name = $"Match {(i / 2) + 1}",
                 TournamentId = tournamentId,
                 FirstPlayerId = players[i],
-                SecondPlayerId = i + 1 < players.Count ? players[i + 1] : 0,
+                SecondPlayerId = i + 1 < players.Count ? players[i + 1] : null,
                 MatchTime = tournament.BeginningDate,
+                PendingWinnerId = null,
                 WinnerId = null
             };
             matches.Add(match);
@@ -185,6 +186,7 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
             .Where(m => m.TournamentId == tournamentId)
             .Include(m => m.FirstPlayer)
             .Include(m => m.SecondPlayer)
+            .Include(m => m.PendingWinner)
             .Include(m => m.Winner)
             .Select(m => new MatchResponse
             {
@@ -192,9 +194,11 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
                 Name = m.Name,
                 TournamentId = m.TournamentId,
                 FirstPlayerId = m.FirstPlayerId,
-                FirstPlayerUsername = m.FirstPlayer != null ? m.FirstPlayer.Username : null,
+                FirstPlayerUsername = m.FirstPlayer.Username,
                 SecondPlayerId = m.SecondPlayerId,
                 SecondPlayerUsername = m.SecondPlayer != null ? m.SecondPlayer.Username : null,
+                PendingWinnerId = m.PendingWinnerId,
+                PendingWinnerUsername = m.PendingWinner != null ? m.PendingWinner.Username : null,
                 WinnerId = m.WinnerId,
                 WinnerUsername = m.Winner != null ? m.Winner.Username : null,
                 MatchTime = m.MatchTime
@@ -207,6 +211,193 @@ public class TournamentServices(AppDbContext context, ILogger<TournamentServices
             Message = "Tournoi démarré avec succès.",
             InitialMatches = matchResponses
         };
+    }
+
+    public async Task<SubmitMatchResultResponse> SubmitMatchResultAsync(int tournamentId, int matchId, SubmitMatchResultRequest request, int userId)
+    {
+        var match = await context.Matches
+            .Include(m => m.Tournament)
+            .Include(m => m.FirstPlayer)
+            .Include(m => m.SecondPlayer)
+            .FirstOrDefaultAsync(m => m.Id == matchId && m.TournamentId == tournamentId)
+            ?? throw new ArgumentException("Match ou tournoi non trouvé.");
+
+        if (match.Tournament.StatusId != 2)
+        {
+            logger.LogWarning("Tentative de soumettre un résultat pour le match {MatchId} dans un tournoi {TournamentId} qui n’est pas en cours", matchId, tournamentId);
+            throw new InvalidOperationException("Le tournoi n’est pas en cours.");
+        }
+
+        if (match.FirstPlayerId != userId && match.SecondPlayerId != userId)
+        {
+            logger.LogWarning("L’utilisateur {UserId} a tenté de soumettre un résultat pour le match {MatchId} auquel il ne participe pas", userId, matchId);
+            throw new UnauthorizedAccessException("Seuls les participants du match peuvent soumettre un résultat.");
+        }
+
+        if (match.PendingWinnerId != null)
+        {
+            logger.LogWarning("Tentative de soumettre un résultat pour le match {MatchId} qui a déjà un résultat en attente", matchId);
+            throw new InvalidOperationException("Un résultat a déjà été soumis pour ce match.");
+        }
+
+        if (request.WinnerId != match.FirstPlayerId && request.WinnerId != match.SecondPlayerId)
+        {
+            logger.LogWarning("L’utilisateur {UserId} a soumis un WinnerId {WinnerId} invalide pour le match {MatchId}", userId, request.WinnerId, matchId);
+            throw new ArgumentException("Le winner doit être l’un des participants du match.");
+        }
+
+        match.PendingWinnerId = request.WinnerId;
+        await context.SaveChangesAsync();
+
+        logger.LogInformation("Résultat soumis pour le match {MatchId} par l’utilisateur {UserId}", matchId, userId);
+
+        return new SubmitMatchResultResponse
+        {
+            MatchId = matchId,
+            Message = "Résultat soumis avec succès, en attente de validation."
+        };
+    }
+
+    public async Task<ValidateMatchResultResponse> ValidateMatchResultAsync(int tournamentId, int matchId, ValidateMatchResultRequest request, int adminId)
+    {
+        var admin = await context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Id == adminId)
+            ?? throw new UnauthorizedAccessException("Utilisateur non trouvé.");
+
+        if (admin.Role.Name != "Admin")
+        {
+            logger.LogWarning("L’utilisateur {UserId} a tenté de valider le match {MatchId} sans être Admin", adminId, matchId);
+            throw new UnauthorizedAccessException("Seuls les administrateurs peuvent valider un résultat.");
+        }
+
+        var match = await context.Matches
+            .Include(m => m.Tournament)
+            .FirstOrDefaultAsync(m => m.Id == matchId && m.TournamentId == tournamentId)
+            ?? throw new ArgumentException("Match ou tournoi non trouvé.");
+
+        if (match.PendingWinnerId == null)
+        {
+            logger.LogWarning("Tentative de valider le match {MatchId} sans résultat soumis", matchId);
+            throw new InvalidOperationException("Aucun résultat n’a été soumis pour ce match.");
+        }
+
+        if (request.IsApproved)
+        {
+            match.WinnerId = match.PendingWinnerId;
+            match.PendingWinnerId = null;
+            logger.LogInformation("Résultat du match {MatchId} validé par l’Admin {AdminId}", matchId, adminId);
+        }
+        else
+        {
+            match.PendingWinnerId = null;
+            logger.LogInformation("Résultat du match {MatchId} rejeté par l’Admin {AdminId}", matchId, adminId);
+        }
+
+        await context.SaveChangesAsync();
+
+
+        await CheckAndAdvanceTournamentAsync(tournamentId);
+
+        return new ValidateMatchResultResponse
+        {
+            MatchId = matchId,
+            Message = request.IsApproved ? "Résultat validé avec succès." : "Résultat rejeté."
+        };
+    }
+    
+    public async Task ValidateMultipleMatchesAsync(int tournamentId, Dictionary<int, bool> matchValidations, int adminId)
+    {
+        var admin = await context.Users
+                        .Include(u => u.Role)
+                        .FirstOrDefaultAsync(u => u.Id == adminId)
+                    ?? throw new UnauthorizedAccessException("Utilisateur non trouvé.");
+
+        if (admin.Role.Name != "Admin")
+            throw new UnauthorizedAccessException("Seuls les administrateurs peuvent valider des résultats.");
+
+        var matches = await context.Matches
+            .Where(m => m.TournamentId == tournamentId && matchValidations.Keys.Contains(m.Id))
+            .ToListAsync();
+
+        Parallel.ForEach(matches, new ParallelOptions { MaxDegreeOfParallelism = 10 }, match =>
+        {
+            if (match.PendingWinnerId == null) return;
+
+            if (matchValidations.TryGetValue(match.Id, out var isApproved) && isApproved)
+            {
+                match.WinnerId = match.PendingWinnerId;
+            }
+            match.PendingWinnerId = null;
+        });
+
+        await context.SaveChangesAsync();
+        await CheckAndAdvanceTournamentAsync(tournamentId);
+    }
+
+    public async Task AdvanceTournamentAsync(int tournamentId, int adminId)
+    {
+        var admin = await context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Id == adminId)
+            ?? throw new UnauthorizedAccessException("Utilisateur non trouvé.");
+
+        if (admin.Role.Name != "Admin")
+        {
+            logger.LogWarning("L’utilisateur {UserId} a tenté d’avancer le tournoi {TournamentId} sans être Admin", adminId, tournamentId);
+            throw new UnauthorizedAccessException("Seuls les administrateurs peuvent avancer le tournoi.");
+        }
+
+        await CheckAndAdvanceTournamentAsync(tournamentId);
+    }
+
+    private async Task CheckAndAdvanceTournamentAsync(int tournamentId)
+    {
+        var tournament = await context.Tournaments
+            .Include(t => t.Matches)
+            .Include(t => t.Players)
+            .FirstOrDefaultAsync(t => t.Id == tournamentId)
+            ?? throw new ArgumentException("Tournoi non trouvé.");
+
+        if (tournament.StatusId != 2)
+            return;
+
+        var matches = tournament.Matches.ToList();
+        if (matches.Any(m => m.WinnerId == null))
+            return;
+
+        if (matches.Count == 1)
+        {
+            tournament.StatusId = 3; 
+            await context.SaveChangesAsync();
+            logger.LogInformation("Tournoi {TournamentId} terminé", tournamentId);
+            return;
+        }
+
+        var winners = matches
+            .Where(m => m.WinnerId != null)
+            .Select(m => m.WinnerId!.Value)
+            .OrderBy(_ => Guid.NewGuid())
+            .ToList();
+
+        var newMatches = new List<Match>();
+        for (int i = 0; i < winners.Count; i += 2)
+        {
+            var match = new Match
+            {
+                Name = $"Match {(i / 2) + 1} - Tour suivant",
+                TournamentId = tournamentId,
+                FirstPlayerId = winners[i],
+                SecondPlayerId = i + 1 < winners.Count ? winners[i + 1] : null,
+                MatchTime = DateTime.UtcNow.AddHours(1)
+            };
+            newMatches.Add(match);
+        }
+
+        await context.Matches.AddRangeAsync(newMatches);
+        await context.SaveChangesAsync();
+
+        logger.LogInformation("Tournoi {TournamentId} avancé au tour suivant avec {MatchCount} nouveaux matchs", tournamentId, newMatches.Count);
     }
     
     private static bool IsPowerOfTwo(int n) => n > 0 && (n & (n - 1)) == 0;

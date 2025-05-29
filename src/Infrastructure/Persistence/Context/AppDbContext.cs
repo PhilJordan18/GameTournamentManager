@@ -20,6 +20,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
         
+        modelBuilder.Entity<Match>()
+            .HasOne(m => m.PendingWinner)
+            .WithMany()
+            .HasForeignKey(m => m.PendingWinnerId)
+            .OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.FirstPlayer).WithMany().HasForeignKey(m => m.FirstPlayerId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.SecondPlayer).WithMany().HasForeignKey(m => m.SecondPlayerId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.Winner).WithMany().HasForeignKey(m => m.WinnerId).OnDelete(DeleteBehavior.Restrict);
