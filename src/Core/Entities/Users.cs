@@ -16,6 +16,7 @@ public class User
     public bool Is2FAActived { get; set; }
     public string TwoFactorSecretKey { get; set; }
     public string TwoFactorRecoveryCodes { get; set; }
+    public ICollection<UserFcmToken> FcmTokens { get; set; } = [];
 }
 
 

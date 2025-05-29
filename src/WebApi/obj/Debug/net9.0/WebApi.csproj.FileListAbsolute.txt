@@ -237,3 +237,13 @@
 /Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/obj/Debug/net9.0/WebApi.pdb
 /Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/obj/Debug/net9.0/WebApi.genruntimeconfig.cache
 /Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/obj/Debug/net9.0/ref/WebApi.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/firebase-adminsdk.json
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/firebase.example.json
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/FirebaseAdmin.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/Google.Api.Gax.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/Google.Api.Gax.Rest.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/Google.Apis.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/Google.Apis.Auth.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/Google.Apis.Core.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/System.Management.dll
+/Users/philippemonfouayi/RiderProjects/GameTournamentManager/src/WebApi/bin/Debug/net9.0/runtimes/win/lib/net7.0/System.Management.dll

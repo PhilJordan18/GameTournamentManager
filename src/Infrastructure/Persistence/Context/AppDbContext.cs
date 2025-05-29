@@ -6,6 +6,7 @@ namespace Infrastructure.Persistence.Context;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<UserFcmToken> UserFcmTokens { get; set; } = null!;
     public DbSet<Tournament> Tournaments { get; set; }
     public DbSet<TournamentPlayer> TournamentPlayers { get; set; }
     public DbSet<Match> Matches { get; set; }
@@ -20,11 +21,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
         
-        modelBuilder.Entity<Match>()
-            .HasOne(m => m.PendingWinner)
-            .WithMany()
-            .HasForeignKey(m => m.PendingWinnerId)
-            .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<UserFcmToken>().HasOne(t => t.User).WithMany(u => u.FcmTokens).HasForeignKey(t => t.UserId).OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Match>().HasOne(m => m.PendingWinner).WithMany().HasForeignKey(m => m.PendingWinnerId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.FirstPlayer).WithMany().HasForeignKey(m => m.FirstPlayerId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.SecondPlayer).WithMany().HasForeignKey(m => m.SecondPlayerId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Match>().HasOne(m => m.Winner).WithMany().HasForeignKey(m => m.WinnerId).OnDelete(DeleteBehavior.Restrict);
